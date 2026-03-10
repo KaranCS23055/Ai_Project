@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-IDS | Probabilistic Cyber Defense</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="top-banner">
+            <img src="/static/cyber_banner.png" alt="Defense Core"
+                style="width: 100%; height: 180px; object-fit: cover; border-radius: 24px; margin-bottom: 2rem; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+        </div>
+        <header>
+            <div class="logo">
+                <h1>AI-IDS <span style="font-weight: 300;">Shield</span></h1>
+            </div>
+            <div class="status-badge">
+                <div class="status-dot"></div>
+                System Active
+            </div>
+        </header>
+
+        <div class="grid">
+            <div class="sidebar">
+                <div class="card">
+                    <h2>Feature Vector Input</h2>
+                    <form id="inspect-form">
+                        <div class="form-group">
+                            <label>Duration</label>
+                            <input type="number" id="duration" value="0.5" step="any">
+                        </div>
+                        <div class="form-group">
+                            <label>Source Bytes</label>
+                            <input type="number" id="src_bytes" value="450" step="any">
+                        </div>
+                        <div class="form-group">
+                            <label>Destination Bytes</label>
+                            <input type="number" id="dst_bytes" value="480" step="any">
+                        </div>
+                        <div class="form-group">
+                            <label>Count</label>
+                            <input type="number" id="count" value="5" step="any">
+                        </div>
+                        <div class="form-group">
+                            <label>Serror Rate (0.0 - 1.0)</label>
+                            <input type="number" id="serror_rate" value="0.05" step="any">
+                        </div>
+                        <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                            <button type="submit" style="margin-top: 0;">Analyze Traffic</button>
+                            <button type="button" id="clear-btn" class="clear-btn" style="margin-top: 0;">Clear
+                                Form</button>
+                        </div>
+                    </form>
+                    <div style="margin-top: 1rem; text-align: center;">
+                        <a href="#" id="randomize-btn"
+                            style="color: var(--secondary); font-size: 0.8rem; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 5px;">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M21 2v6h-6M3 12a9 9 0 0115-6.7L21 8M3 22v-6h6M21 12a9 9 0 01-15 6.7L3 16" />
+                            </svg>
+                            Simulate Random Traffic
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-content">
+                <div class="stats-grid">
+                    <div class="card stat-item">
+                        <span class="stat-value" id="total-checked">0</span>
+                        <span class="stat-label">Total Scanned</span>
+                    </div>
+                    <div class="card stat-item">
+                        <span class="stat-value" id="threats-detected" style="color: var(--danger);">0</span>
+                        <span class="stat-label">Threats Blocked</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>Live Detection Analytics</h2>
+                    <div class="charts-container">
+                        <canvas id="ids-chart"></canvas>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 2rem;">
+                    <h2>Recent Activities</h2>
+                    <div id="history-list" class="history-list">
+                        <!-- History items will be injected here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="result-overlay">
+        <h2 id="overlay-result">Normal</h2>
+        <p id="overlay-conf">Confidence: 99.8%</p>
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+
+</html>
